@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>PM3</title>
+	<style>
+	.node {
+	  stroke: blue;
+	  stroke-width: 1.5px;
+	  cursor: move;
+	  stroke-opacity: 15;
+	}
+
+	.group {
+	  stroke: red;
+	  stroke-width: 1.5px;
+	  cursor: move;
+	  opacity: 1;
+	}
+
+	.link {
+	  stroke: green;
+	  stroke-width: 3px;
+	  stroke-opacity: 15;
+	}
+
+	.label {
+	  fill: black;
+	  font-family: Verdana;
+	  font-size: 25px;
+	  text-anchor: middle;
+	  cursor: move;
+	}
+
+	</style>
+</head>
+
+<body>
+    <script src="d3v4.js"></script>
+    <script src="cola.min.js"></script>
+    <script>
+    
+    myjason = {
+		    "nodes":[
+		      {"name":"Node_1","width":60,"height":40},
+		      {"name":"Node_2","width":60,"height":40},
+		      {"name":"Node_3","width":60,"height":40},
+		      {"name":"Node_4","width":60,"height":40},
+		      {"name":"Node_5","width":60,"height":40},
+		      {"name":"Node_6","width":60,"height":40},
+		      {"name":"alt_1","width":60,"height":40},
+		      {"name":"alt_2","width":60,"height":40}
+		    ],
+		    
+		    "links":[
+		      {"source":0,"target":1},
+		      {"source":0,"target":6},
+		      {"source":6,"target":5},
+		      {"source":6,"target":2},
+		      {"source":2,"target":7},
+              {"source":7,"target":3},
+              {"source":7,"target":4}
+		    ],
+
+		    "groups":[
+		      {"leaves":[0], "groups":[1]},
+		      {"leaves":[1,2]},
+		      {"leaves":[3,4]}
+		    ]
+
+    }
+
+    </script>
+</body>
+
+</html>
