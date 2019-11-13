@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>PM4</title>
+  <style>
+  .node {
+    stroke: blue;
+    stroke-width: 1.5px;
+    cursor: move;
+    stroke-opacity: 15;
+  }
+
+  .group {
+    stroke: red;
+    stroke-width: 1.5px;
+    cursor: move;
+    opacity: 1;
+  }
+
+  .link {
+    stroke: green;
+    stroke-width: 3px;
+    stroke-opacity: 15;
+  }
+
+  .label {
+    fill: black;
+    font-family: Verdana;
+    font-size: 25px;
+    text-anchor: middle;
+    cursor: move;
+  }
+
+  div.popupwindow{
+    position: absolute;     
+    text-align: center;     
+    width: 200px;
+    height: 100px;
+    padding: 2px;       
+    font: 12px sans-serif;    
+    background: lightsteelblue; 
+    pointer-events: none;
+  }
+
+  </style>
+</head>
+
+<body>
+    <div id="chart"></div>
+    <script src="d3v4.js"></script>
+    <script src="cola.min.js"></script>
+    <script>
+    
+    myjason = {
+        "nodes":[
+          {"name":"Node_1","width":115,"height":70, "id": 1},
+          {"name":"Node_2","width":115,"height":70, "id": 2},
+          {"name":"Node_3","width":115,"height":70, "id": 3},
+          {"name":"Node_4","width":115,"height":70, "id": 6},
+          {"name":"Node_5","width":115,"height":70, "id": 7},
+          {"name":"Node_6","width":115,"height":70, "id": 4},
+          {"name":"alt_1","width":115,"height":70, "id": 5},
+          {"name":"alt_2","width":115,"height":70, "id": 8},
+          {"name":"node_7","width":115,"height":70, "id": 9},
+          {"name":"node_8","width":115,"height":70, "id": 10}
+          
+        ],
+
+        "links":[
+          {"source":0,"target":1},
+          {"source":0,"target":6},
+          {"source":6,"target":5},
+          {"source":6,"target":2},
+          {"source":2,"target":7},
+          {"source":7,"target":3},
+          {"source":7,"target":4},
+          {"source":1,"target":8},
+          {"source":1,"target":9}
+              
+            ],
+
+        "groups":[
+          {"leaves":[0], "groups":[1]},
+          {"leaves":[1,2,6,0,5]},
+          {"leaves":[3,4,7]},
+          {"leaves":[8,9]}
+         
+        ]
+
+        /*"groups":[
+               {"leaves":[1,2,5,6], "groups": [0]},
+               {"leaves":[3,4,7]}
+
+        ]*/
+
+    }
+
+     var width = 1900,
+         height = 1000;
+
+    var color = d3.scaleOrdinal(d3.schemeCategory20);
+
+    var cola = cola.d3adaptor(d3)
+        .linkDistance(150)
+        .avoidOverlaps(true)
+        .handleDisconnected(false)
+        .size([width, height]);
+
+    var svg = d3.select("body").append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    var div = d3.select("body").append("div") 
+        .attr("class", "popupwindow")       
+        .style("opacity", 0);
+
+    graph = myjason;
+        cola.nodes(graph.nodes).links(graph.links).groups(graph.groups).start();
+
+    //Rectangle for groups
+        var group = svg.selectAll(".group")
+            .data(graph.groups)
+            .enter().append("rect")
+            .attr("rx", 8).attr("ry", 8)
+            .attr("class", "group")
+            .style("fill", function (d, i) { return color(i); })
+            .call(cola.drag);
+
+    //lines for edges
+        var link = svg.selectAll(".link")
+            .data(graph.links)
+            .enter().append("line")
+            .attr("class", "link");
+         
+         function redraw() {
+          vis.attr("transform", "translate(" + d3.event.translate + ")" + " scale(" + d3.event.scale + ")");
+    }
+
+
+    //Rectangle for nodes
+       var pad = 3;
+        var node = svg.selectAll(".node")
+            .data(graph.nodes)
+            .enter().append("rect")
+            .attr("class", "node")
+            .attr("width", function (d) { return d.width - 2 * pad; })
+            .attr("height", function (d) { return d.height - 2 * pad; })
+            .attr("rx", 5).attr("ry", 5)
+            .style("fill", function (d) { return color(graph.groups.length); })
+            .call(cola.drag);
+
+        var hoverNode = svg.selectAll(".node")
+                           .data(graph.nodes)
+                           .on("mouseover", function(d)
+                           {  
+                             console.log(" I am in mouseover function");
+                              /*d3.select(this).transition()
+                                .duration('50')
+                                .attr('opacity', '.85');*/
+                             div.transition()
+                                .duration(200)
+                                .style("opacity", .9);
+                             if(d.id<6)
+                             {
+                             div.html("<h5>description:</h5><p>" + d.name +"</p>")
+                                .html("<p> Node_1: Node_2 | Node_3 Node_6</p>")
+                        
+                                .style("left", (d3.event.pageX ) + "px")    
+                                .style("top", (d3.event.pageY - 28) + "px");  
+                             }
+                             else if(d.id>5 && d.id <9)
+                             {
+                             div.html("<h5>description:</h5><p>" + d.name +"</p>")
+                                .html("<p> Node_3: Node_4 Node_5</p>")
+                        
+                                .style("left", (d3.event.pageX) + "px")    
+                                .style("top", (d3.event.pageY - 28) + "px");   
+                             }
+                             else
+                             {
+                              div.html("<h5>description:</h5><p>" + d.name +"</p>")
+                                .html("<p> Node_2: Node_7 Node_8</p>")
+                        
+                                .style("left", (d3.event.pageX) + "px")    
+                                .style("top", (d3.event.pageY - 28) + "px");
+                             }
+                             
+                        
+                           })
+                           .on("mouseout", function(d)
+                           {
+                              /*d3.select(this).transition()
+                                .duration('500')
+                                .attr('opacity', '1');*/
+                             div.transition()
+                                .duration('500')
+                                .style("opacity", 0);
+                           });
+
+     /* var hoverNode = svg.selectAll(".node")
+                         .data(graph.nodes)
+                         .on("mouseover", function(d){
+
+                          if (d.id<6)
+                          {
+                            return console.log("1st Grammar Rule");
+                          }
+                          else if(d.id>5 && d.id <9)
+                          {
+                            return console.log("2nd Grammar Rule");
+                          }
+                          else 
+                          {
+                            return console.log("3rd Grammar Rule");
+                          }
+              //return console.log(d.name);
+            })
+            .on("mouseout", function(d)
+            {
+              return console.log("I am not on a node")
+            })
+            .on("click", function(d)
+            {
+               return console.log(d.name)
+            });*/
+            
+
+         /*svg.selectAll("rect")
+               
+                .on('click', console.log("I am on a node"));
+                //.on('mouseout', console.log("I am not on a node"));*/
+
+
+    //text for labeling
+        var label = svg.selectAll(".label")
+            .data(graph.nodes)
+            .enter().append("text")
+            .attr("class", "label")
+            .text(function (d) { return d.name; })
+            .call(cola.drag);
+
+        node.append("title")
+            .text(function (d) { return d.name; });
+
+    //interactivity
+
+        cola.on("tick", function () {
+            link.attr("x1", function (d) { return d.source.x; })
+                .attr("y1", function (d) { return d.source.y; })
+                .attr("x2", function (d) { return d.target.x; })
+                .attr("y2", function (d) { return d.target.y; });
+
+            node.attr("x", function (d) { return d.x - d.width / 2 + pad; })
+                .attr("y", function (d) { return d.y - d.height / 2 + pad; });
+            
+            group.attr("x", function (d) { return d.bounds.x; })
+                .attr("y", function (d) { return d.bounds.y; })
+                .attr("width", function (d) { return d.bounds.width(); })
+                .attr("height", function (d) { return d.bounds.height(); });
+
+            label.attr("x", function (d) { return d.x; })
+                .attr("y", function (d) {
+                     var h = this.getBBox().height;
+                     return d.y + h/4;
+                 });
+        });
+
+    </script>
+</body>
+
+</html>
