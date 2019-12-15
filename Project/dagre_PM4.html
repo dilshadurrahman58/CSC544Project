@@ -1,0 +1,389 @@
+
+<!doctype html>
+
+<title>PM4</title>
+
+<link rel="stylesheet">
+<script src="d3.v4.min.js" charset="utf-8"></script>
+<script src="dagre-d3.js"></script>
+
+<style id="css">
+.clusters rect {
+  fill: #00ffd0;
+  stroke: #999;
+  stroke-width: 1.5px;
+}
+
+text {
+  font-weight: 300;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serf;
+  font-size: 14px;
+}
+.path{
+  fill-opacity:0;
+}
+       
+.node rect{
+  stroke: #333;
+  fill: #fff;
+  stroke-width: 1.5px;
+}
+
+div.popupwindow{
+    position: absolute;     
+    text-align: left;     
+    width: 270px;
+    height: 160px;
+    padding: 2px;
+    padding-left: 10px;       
+    font: 12px sans-serif;    
+    background: #ffccff; 
+    pointer-events: none;
+  }
+
+div.cpopupwindow{
+  position: absolute;     
+    text-align: left;     
+    width: 270px;
+    height: 160px;
+    padding: 2px;
+    padding-left: 10px;       
+    font: 12px sans-serif;    
+    background: #ffeb99; 
+    pointer-events: none;
+}
+</style>
+
+<svg  width=1200 height=120></svg>
+
+
+<script id="js">
+
+//Input Graph Creation
+  var g = new dagreD3.graphlib.Graph({compound:true})
+  .setGraph({})
+  .setDefaultEdgeLabel(function() { return {}; }); 
+
+// Here we're setting the nodes
+
+//nodes for the first cluster
+g.setNode(36,{ style: "fill: #33cccc", label: 'Start_1_3', labelStyle: "font-weight: bold" });
+g.setNode(37, { style: "fill: #33cccc", label: 'E_1_3', labelStyle: "font-weight: bold" });
+
+//nodes for the second cluster
+g.setNode(22, {shape: "rect", style: "fill: #99cc00",label: 'E_1_3', labelStyle: "font-weight: bold"});
+g.setNode(23, {style: "fill: #99cc00",label: 'alt', labelStyle: "font-weight: bold"});
+g.setNode(24, {style: "fill: #99cc00",label: 'seq', labelStyle: "font-weight: bold"});
+g.setNode(25, {style: "fill: #99cc00",label: 'seq', labelStyle: "font-weight: bold"});
+g.setNode(26, {style: "fill: #99cc00",label: 'seq', labelStyle: "font-weight: bold"});
+g.setNode(27, {style: "fill: #99cc00",label: 'E_1_3', labelStyle: "font-weight: bold"});
+g.setNode(28, {shape: "diamond", style: "fill: #99cc00; stroke: #333; stroke-width: 1.5px",label: 'PLUS', labelStyle: "font-weight: bold"});
+g.setNode(29, {style: "fill: #99cc00",label: 'E_0_0', labelStyle: "font-weight: bold"});
+g.setNode(30, {style: "fill: #99cc00",label: 'Epsilon', labelStyle: "font-weight: bold"});
+g.setNode(31, {style: "fill: #99cc00",label: 'Epsilon', labelStyle: "font-weight: bold"});
+g.setNode(32, {style: "fill: #99cc00",label: 'E_3_3', labelStyle: "font-weight: bold"});
+g.setNode(33, {style: "fill: #99cc00",label: 'E_1_3', labelStyle: "font-weight: bold"});
+g.setNode(34, {shape: "diamond", style: "fill: #99cc00; stroke: #333; stroke-width: 1.5px",label: 'MULT', labelStyle: "font-weight: bold"});
+g.setNode(35, {style: "fill: #99cc00",label: 'E_0_0', labelStyle: "font-weight: bold"});
+
+//nodes for the third cluster
+g.setNode(11, {style: "fill: #9966ff",label: 'E_3_3', labelStyle: "font-weight: bold"});
+g.setNode(12, {style: "fill: #9966ff",label: 'alt', labelStyle: "font-weight: bold"});
+g.setNode(13, {style: "fill: #9966ff",label: 'seq', labelStyle: "font-weight: bold"});
+g.setNode(14, {style: "fill: #9966ff",label: 'seq', labelStyle: "font-weight: bold"});
+g.setNode(15, {style: "fill: #9966ff",label: 'Epsilon', labelStyle: "font-weight: bold"});
+g.setNode(16, {style: "fill: #9966ff",label: 'E_3_3', labelStyle: "font-weight: bold"});
+g.setNode(17, {shape: "diamond", style: "fill: #9966ff; stroke: #333; stroke-width: 1.5px",label: 'MULT', labelStyle: "font-weight: bold"});
+g.setNode(18, {style: "fill: #9966ff",label: 'E_0_0', labelStyle: "font-weight: bold"});
+g.setNode(19, {style: "fill: #9966ff",label: 'E_3_3', labelStyle: "font-weight: bold"});
+g.setNode(20, {shape: "diamond", style: "fill: #9966ff; stroke: #333; stroke-width: 1.5px",label: 'PLUS', labelStyle: "font-weight: bold"});
+g.setNode(21, {style: "fill: #9966ff",label: 'E_0_0', labelStyle: "font-weight: bold"});
+
+//nodes for the forth cluster
+g.setNode(0, {style: "fill: #999966",label: 'E_0_0', labelStyle: "font-weight: bold"});
+g.setNode(1, {style: "fill: #999966",label: 'alt', labelStyle: "font-weight: bold"});
+g.setNode(2, {style: "fill: #999966",label: 'seq', labelStyle: "font-weight: bold"});
+g.setNode(3, {style: "fill: #999966",label: 'seq', labelStyle: "font-weight: bold"});
+g.setNode(4, {style: "fill: #999966",label: 'NUM', labelStyle: "font-weight: bold"});
+g.setNode(5, {style: "fill: #999966",label: 'E_0_0', labelStyle: "font-weight: bold"});
+g.setNode(6, {shape: "diamond", style: "fill: #999966; stroke: #333; stroke-width: 1.5px",label: 'MULT', labelStyle: "font-weight: bold"});
+g.setNode(7, {style: "fill: #999966",label: 'E_0_0', labelStyle: "font-weight: bold"});
+g.setNode(8, {style: "fill: #999966",label: 'E_0_0', labelStyle: "font-weight: bold"});
+g.setNode(9, {shape: "diamond", style: "fill: #999966; stroke: #333; stroke-width: 1.5px",label: 'MULT', labelStyle: "font-weight: bold"});
+g.setNode(10, {style: "fill: #999966",label: 'E_0_0', labelStyle: "font-weight: bold"});
+
+
+
+
+//setting the groups or clusters
+
+g.setNode('group_1', {label: 'Start_1_3 Rule', clusterLabelPos:'bottom', style: "fill: #DBD2CB; stroke:#33cccc; stroke-width: 3px" , labelStyle: "font-weight: bold"});
+g.setNode('group_2', {label: 'E_1_3 Rule', clusterLabelPos:'bottom', style: "fill: #DBD2CB;stroke:#99cc00; stroke-width: 3px" , labelStyle: "font-weight: bold"});
+g.setNode('group_3', {label: 'E_3_3 Rule', clusterLabelPos:'bottom', style: "fill: #DBD2CB;stroke:#9966ff; stroke-width: 3px", labelStyle: "font-weight: bold"});
+g.setNode('group_4', {label: 'E_0_0 Rule', clusterLabelPos:'bottom', style: "fill: #DBD2CB;stroke:#999966; stroke-width: 3px", labelStyle: "font-weight: bold"});
+
+
+
+
+
+//Setting the relation between nodes and groups or clusters according to the grammar rules
+
+//cluster 1
+g.setParent(36, 'group_1');
+g.setParent(37, 'group_1');
+
+//cluster 2
+g.setParent(22, 'group_2');
+g.setParent(23, 'group_2');
+g.setParent(24, 'group_2');
+g.setParent(25, 'group_2');
+g.setParent(26, 'group_2');
+g.setParent(27, 'group_2');
+g.setParent(28, 'group_2');
+g.setParent(29, 'group_2');
+g.setParent(30, 'group_2');
+g.setParent(31, 'group_2');
+g.setParent(32, 'group_2');
+g.setParent(33, 'group_2');
+g.setParent(34, 'group_2');
+g.setParent(35, 'group_2');
+
+//cluster 3
+g.setParent(11, 'group_3');
+g.setParent(12, 'group_3');
+g.setParent(13, 'group_3');
+g.setParent(14, 'group_3');
+g.setParent(15, 'group_3');
+g.setParent(16, 'group_3');
+g.setParent(17, 'group_3');
+g.setParent(18, 'group_3');
+g.setParent(19, 'group_3');
+g.setParent(20, 'group_3');
+g.setParent(21, 'group_3');
+
+//cluster 4
+g.setParent(0, 'group_4');
+g.setParent(1, 'group_4');
+g.setParent(2, 'group_4');
+g.setParent(3, 'group_4');
+g.setParent(4, 'group_4');
+g.setParent(5, 'group_4');
+g.setParent(6, 'group_4');
+g.setParent(7, 'group_4');
+g.setParent(8, 'group_4');
+g.setParent(9, 'group_4');
+g.setParent(10, 'group_4');
+
+
+
+//Setting up the relation among the nodes according to the grammar
+
+//cluster 1
+g.setEdge(36, 37,{style: "stroke: #33cccc; stroke-width: 3px", arrowheadStyle: "fill: #33cccc; stroke: #33cccc "});
+g.setEdge(37, 22,{style: "stroke: #33cccc; stroke-width: 3px", arrowheadStyle: "fill: #33cccc; stroke: #33cccc"}); //connection between cluster 1 with cluster 2
+
+//cluster 2
+g.setEdge(22, 23,{style: "fill-opacity: 0; stroke: #99cc00; stroke-width: 3px", arrowheadStyle: "fill: #99cc00; stroke: #99cc00 "});
+g.setEdge(23, 24,{style: "fill-opacity: 0;stroke: #99cc00; stroke-width: 3px", arrowheadStyle: "fill: #99cc00; stroke: #99cc00 "});
+g.setEdge(23, 25,{style: "fill-opacity: 0;stroke: #99cc00; stroke-width: 3px", arrowheadStyle: "fill: #99cc00; stroke: #99cc00 "});
+g.setEdge(23, 26,{style: "stroke: #99cc00; stroke-width: 3px", arrowheadStyle: "fill: #99cc00; stroke: #99cc00 "});
+g.setEdge(24, 27,{style: "stroke: #99cc00; stroke-width: 3px", arrowheadStyle: "fill: #99cc00; stroke: #99cc00 "});
+g.setEdge(24, 28,{style: "stroke: #99cc00; stroke-width: 3px", arrowheadStyle: "fill: #99cc00; stroke: #99cc00 "});
+g.setEdge(24, 29,{style: "stroke: #99cc00; stroke-width: 3px", arrowheadStyle: "fill: #99cc00; stroke: #99cc00; stroke-width: 1.5px "});
+g.setEdge(25, 30,{style: "stroke: #99cc00; stroke-width: 3px", arrowheadStyle: "fill: #99cc00; stroke: #99cc00 "});
+g.setEdge(25, 31,{style: "stroke: #99cc00; stroke-width: 3px", arrowheadStyle: "fill: #99cc00; stroke: #99cc00 "});
+g.setEdge(25, 32,{style: "stroke: #99cc00; stroke-width: 3px", arrowheadStyle: "fill: #99cc00; stroke: #99cc00 "});
+g.setEdge(26, 33,{style: "stroke: #99cc00; stroke-width: 3px", arrowheadStyle: "fill: #99cc00; stroke: #99cc00 "});
+g.setEdge(26, 34,{style: "stroke: #99cc00; stroke-width: 3px", arrowheadStyle: "fill: #99cc00; stroke: #99cc00 "});
+g.setEdge(26, 35,{style: "stroke: #99cc00; stroke-width: 3px", arrowheadStyle: "fill: #99cc00; stroke: #99cc00 "});
+
+//cluster 3
+g.setEdge(11, 12,{style: "stroke: #9966ff; stroke-width: 3px", arrowheadStyle: "fill: #9966ff; stroke: #9966ff "});
+g.setEdge(12, 13,{style: "stroke: #9966ff; stroke-width: 3px", arrowheadStyle: "fill: #9966ff; stroke: #9966ff "});
+g.setEdge(12, 14,{style: "stroke: #9966ff; stroke-width: 3px", arrowheadStyle: "fill: #9966ff; stroke: #9966ff "});
+g.setEdge(12, 15,{style: "stroke: #9966ff; stroke-width: 3px", arrowheadStyle: "fill: #9966ff; stroke: #9966ff "});
+g.setEdge(13, 16,{style: "stroke: #9966ff; stroke-width: 3px", arrowheadStyle: "fill: #9966ff; stroke: #9966ff "});
+g.setEdge(13, 17,{style: "stroke: #9966ff; stroke-width: 3px", arrowheadStyle: "fill: #9966ff; stroke: #9966ff "});
+g.setEdge(13, 18,{style: "stroke: #9966ff; stroke-width: 3px", arrowheadStyle: "fill: #9966ff; stroke: #9966ff "});
+g.setEdge(14, 19,{style: "stroke: #9966ff; stroke-width: 3px", arrowheadStyle: "fill: #9966ff; stroke: #9966ff "});
+g.setEdge(14, 20,{style: "stroke: #9966ff; stroke-width: 3px", arrowheadStyle: "fill: #9966ff; stroke: #9966ff "});
+g.setEdge(14, 21,{style: "stroke: #9966ff; stroke-width: 3px", arrowheadStyle: "fill: #9966ff; stroke: #9966ff "});
+g.setEdge(32, 11,{style: "stroke: #99cc00; stroke-width: 3px", arrowheadStyle: "fill: #99cc00; stroke: #99cc00 "}); //connection between cluster 2 and cluster 3
+
+//cluster 4
+g.setEdge(0, 1,{style: "stroke: #999966; stroke-width: 3px", arrowheadStyle: "fill: #999966; stroke: #999966 "});
+g.setEdge(1, 2,{style: "stroke: #999966; stroke-width: 3px", arrowheadStyle: "fill: #999966; stroke: #999966 "});
+g.setEdge(1, 3,{style: "stroke: #999966; stroke-width: 3px", arrowheadStyle: "fill: #999966; stroke: #999966 "});
+g.setEdge(1, 4,{style: "stroke: #999966; stroke-width: 3px", arrowheadStyle: "fill: #999966; stroke: #999966 "});
+g.setEdge(2, 5,{style: "stroke: #999966; stroke-width: 3px", arrowheadStyle: "fill: #999966; stroke: #999966 "});
+g.setEdge(2, 6,{style: "stroke: #999966; stroke-width: 3px", arrowheadStyle: "fill: #999966; stroke: #999966 "});
+g.setEdge(2, 7,{style: "stroke: #999966; stroke-width: 3px", arrowheadStyle: "fill: #999966; stroke: #999966 "});
+g.setEdge(3, 8,{style: "stroke: #999966; stroke-width: 3px", arrowheadStyle: "fill: #999966; stroke: #999966 "});
+g.setEdge(3, 9,{style: "stroke: #999966; stroke-width: 3px", arrowheadStyle: "fill: #999966; stroke: #999966 "});
+g.setEdge(3, 10,{style: "stroke: #999966; stroke-width: 3px", arrowheadStyle: "fill: #999966; stroke: #999966 "});
+g.setEdge(21, 0,{style: "stroke: #9966ff; stroke-width: 3px", arrowheadStyle: "fill: #9966ff; stroke: #9966ff "});//connection between cluster 3 and cluster 4
+
+//g.setEdge(21, 31,{style: "stroke: #9966ff; stroke-width: 3px", arrowheadStyle: "fill: #9966ff; stroke: #9966ff "});
+
+
+g.nodes().forEach(function(v) {
+  var node = g.node(v);
+  // Round the corners of the nodes
+  node.rx = node.ry = 5;
+});
+
+/*var svg = d3.select("svg");
+var inner = svg.select("g");
+var zoom = d3.zoom().on("zoom", function()
+{
+  inner.attr("transform", d3.event.transform);
+});
+
+svg.call(zoom);
+
+
+/*var svg = d3.select("svg");
+svg.select(g.nodes().forEach(function(v)
+  {
+    return g.node(v);
+  })).on('mouseover', function(d)
+{
+  console.log("I am on a node");
+});*/
+
+
+
+// Creating renderer
+var render = new dagreD3.render();
+
+// Setting up svg group
+var svg = d3.select("svg"),
+    svgGroup = svg.append("g");
+
+var div = d3.select("body").append("div") 
+        .attr("class", "popupwindow")       
+        .style("opacity", 0);
+
+var divc = d3.select("body").append("div")
+           .attr("class", "cpopupwindow")
+           .style("opacity", 0);
+
+
+//the renderer to draw the final graph.
+render(d3.select("svg g"), g);
+
+
+
+
+
+svg.selectAll("g.node")
+   .on('mouseover', function(d)
+   {  
+      div.transition()
+         .duration(200)
+         .style("opacity", .9);
+                             if(d == 36 || d == 37)
+                             {
+                             div
+                                .html("<p><b>Start_1_3 Rule:</b></p><p>start_1_3: E_1_3</p>")
+                        
+                                .style("left", (d3.event.pageX) + "px")    
+                                .style("top", (d3.event.pageY - 28) + "px"); 
+                             }
+                             else if(d>21 && d<36)
+                             {
+                              div
+                                .html("<p><b>E_1_3 Rule:</b></p><p>E_1_3: E_1_3 PLUS E_0_0</p><p>E_1_3: Epsilon Epsilon E_3_3</p><p>E_1_3: E_1_3 MULT E_0_0</p>")
+                        
+                                .style("left", (d3.event.pageX) + "px")    
+                                .style("top", (d3.event.pageY - 28) + "px");
+                             }
+                             else if(d>10 && d<22)
+                             {
+                             div
+                                .html("<p><b>E_3_3 Rule:</b></p><p>E_3_3: E_3_3 PLUS E_0_0</p><p>E_3_3: E_3_3 MULT E_0_0</p><p>E_3_3: Epsilon</p>")
+                        
+                                .style("left", (d3.event.pageX) + "px")    
+                                .style("top", (d3.event.pageY - 28) + "px");   
+                             }
+                             else
+                            {
+                             div
+                                .html("<p><b>E_0_0 Rule:</b></p><p>E_0_0: E_0_0 PLUS E_0_0</p><p>E_0_0: E_0_0 MULT E_0_0</p><p>E_0_0: NUM</p>")
+                                //.html("<p>Node_1: Node_3 Node_6</p>")
+                        
+                                .style("left", (d3.event.pageX ) + "px")    
+                                .style("top", (d3.event.pageY - 28) + "px");  
+                             }
+      
+       
+   })
+   .on('mouseout', function(d)
+   {
+    console.log("I am not on a node")
+      div.transition()
+         .duration('500')
+         .style("opacity", 0);
+   });
+
+   svg.selectAll("g.cluster")
+      .on('click',function(d)
+      {
+         
+          divc.transition()
+         .duration(200)
+         .style("opacity", .9);
+
+         if(d == 'group_1')
+         {
+            divc
+                                .html("<p><b>Start_1_3 Rule:</b></p><p>start_1_3: E_1_3</p>")
+                        
+                                .style("left", (d3.event.pageX) + "px")    
+                                .style("top", (d3.event.pageY - 28) + "px"); 
+         }
+
+         else if(d == 'group_2')
+         {
+          divc
+                                .html("<p><b>E_1_3 Rule:</b></p><p>E_1_3: E_1_3 PLUS E_0_0</p><p>E_1_3: Epsilon Epsilon E_3_3</p><p>E_1_3: E_1_3 MULT E_0_0</p>")
+                        
+                                .style("left", (d3.event.pageX) + "px")    
+                                .style("top", (d3.event.pageY - 28) + "px");
+         }
+
+         else if(d == 'group_3')
+         {
+          divc
+                                .html("<p><b>E_3_3 Rule:</b></p><p>E_3_3: E_3_3 PLUS E_0_0</p><p>E_3_3: E_3_3 MULT E_0_0</p><p>E_3_3: Epsilon</p>")
+                        
+                                .style("left", (d3.event.pageX) + "px")    
+                                .style("top", (d3.event.pageY - 28) + "px"); 
+         }
+
+         else
+         {
+          divc
+                                .html("<p><b>E_0_0 Rule:</b></p><p>E_0_0: E_0_0 PLUS E_0_0</p><p>E_0_0: E_0_0 MULT E_0_0</p><p>E_0_0: NUM</p>")
+                                //.html("<p>Node_1: Node_3 Node_6</p>")
+                        
+                                .style("left", (d3.event.pageX ) + "px")    
+                                .style("top", (d3.event.pageY - 28) + "px"); 
+         }
+      })
+      .on('mouseout', function(d)
+        {
+          divc.transition()
+         .duration('500')
+         .style("opacity", 0);
+        });
+      
+
+
+
+// Center the graph
+var xCenterOffset = (svg.attr("width") - g.graph().width) / 2;
+svgGroup.attr("transform", "translate(" + xCenterOffset + ", 20)");
+svg.attr("height", g.graph().height + 40);
+</script>
+
