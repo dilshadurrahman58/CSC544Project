@@ -1,0 +1,232 @@
+digraph {
+Grammar [shape="rectangle", style = filled, color ="#EDBB99",label = "\lE_0_0: E_0_0 PLUS E_0_0\l    | E_0_0 MULT E_0_0\l    | NUM\l\lE_1_3: E_1_3 PLUS E_0_0\l    | Epsilon  Epsilon  E_3_3\l    | E_1_3 MULT E_0_0\l\lE_3_3: E_3_3 PLUS E_0_0\l    | E_3_3 MULT E_0_0\l    | Epsilon \l\lstart_1_3: E_1_3\l "];
+
+0:F -> 1 [style=solid];
+
+1:F -> 2 [style=solid];
+
+2:F0 -> 3 [style=solid];
+
+3 [shape="none", margin=0, style = filled, color =".5 .5 1.0", label = < <table border="1" cellborder="0" cellspacing="0" cellpadding="4"><tr><td port="H"></td></tr><tr><td>E_0_0</td></tr></table> > ];
+
+3 -> 0 [style=dotted];
+
+2:F1 -> 4 [style=solid];
+
+4 [shape="diamond", margin=0, style = filled, color =".5 .5 1.0",  label="PLUS"];
+
+2:F2 -> 5 [style=solid];
+
+5 [shape="none", margin=0, style = filled, color =".5 .5 1.0",  label = < <table border="1" cellborder="0" cellspacing="0" cellpadding="4"><tr><td port="H"></td></tr><tr><td>E_0_0</td></tr></table> > ];
+
+5 -> 0 [style=dotted];
+
+2 [shape="none", margin=0, style = filled, color =".5 .5 1.0", label = < <table border="1" cellborder="0" cellspacing="0" cellpadding="4"><tr><td colspan="3">seq</td></tr><tr><td port="F0"></td><td port="F1"></td><td port="F2"></td></tr></table> > ];
+
+1:F -> 6 [style=solid];
+
+6:F0 -> 7 [style=solid];
+
+7 [shape="none", margin=0, style = filled, color =".5 .5 1.0",  label = < <table border="1" cellborder="0" cellspacing="0" cellpadding="4"><tr><td port="H"></td></tr><tr><td>E_0_0</td></tr></table> > ];
+
+7 -> 0 [style=dotted];
+
+6:F1 -> 8 [style=solid];
+
+8 [shape="diamond", style = filled, color =".5 .5 1.0",  margin=0, label="MULT"];
+
+6:F2 -> 9 [style=solid];
+
+9 [shape="none", margin=0, style = filled, color =".5 .5 1.0",  label = < <table border="1" cellborder="0" cellspacing="0" cellpadding="4"><tr><td port="H"></td></tr><tr><td>E_0_0</td></tr></table> > ];
+
+9 -> 0 [style=dotted];
+
+6 [shape="none", margin=0, style = filled, color =".5 .5 1.0",  label = < <table border="1" cellborder="0" cellspacing="0" cellpadding="4"><tr><td colspan="3">seq</td></tr><tr><td port="F0"></td><td port="F1"></td><td port="F2"></td></tr></table> > ];
+
+1:F -> 10 [style=solid];
+
+10 [shape="diamond", margin=0, style = filled, color =".5 .5 1.0",  label="NUM"];
+
+1 [shape="none", margin=0, style = filled, color =".5 .5 1.0",  label = < <table border="1" cellborder="0" cellspacing="0" cellpadding="4"><tr><td>alt</td></tr><tr><td port="F"></td></tr></table> > ];
+
+0 [shape="none", margin=0, style = filled, color =".5 .5 1.0",  label = < <table border="1" cellborder="0" cellspacing="0" cellpadding="4"><tr><td>E_0_0</td></tr><tr><td port="F"></td></tr></table> > ];
+
+11:F -> 12 [style=solid];
+
+12:F -> 13 [style=solid];
+
+13:F0 -> 14 [style=solid];
+
+14 [shape="none", margin=0, style = filled, color ="1.0 .2 1.0", label = < <table border="1" cellborder="0" cellspacing="0" cellpadding="4"><tr><td port="H"></td></tr><tr><td>E_1_3</td></tr></table> > ];
+
+14 -> 11 [style=dotted];
+
+13:F1 -> 15 [style=solid];
+
+15 [shape="diamond", margin=0, style = filled, color ="1.0 .2 1.0",label="PLUS"];
+
+13:F2 -> 16 [style=solid];
+
+16 [shape="none", margin=0, style = filled, color ="1.0 .2 1.0", label = < <table border="1" cellborder="0" cellspacing="0" cellpadding="4"><tr><td port="H"></td></tr><tr><td>E_0_0</td></tr></table> > ];
+
+16 -> 0 [style=dotted];
+
+13 [shape="none", margin=0, style = filled, color ="1.0 .2 1.0", label = < <table border="1" cellborder="0" cellspacing="0" cellpadding="4"><tr><td colspan="3">seq</td></tr><tr><td port="F0"></td><td port="F1"></td><td port="F2"></td></tr></table> > ];
+
+12:F -> 17 [style=solid];
+
+17:F0 -> 18 [style=solid];
+
+18:F -> 19 [style=bold];
+
+20 [label="(NUM 3)"];
+
+19 [margin=0, label = < <table border="0" cellborder="0" cellspacing="0" cellpadding="0"><tr><td colspan="1">E_1_1</td></tr><tr><td port="F0"></td></tr></table> > ];
+
+19:F0 -> 20 [style=bold];
+
+18 [shape="none", margin=0, style = filled, color ="1.0 .2 1.0",label = < <table border="1" cellborder="0" cellspacing="0" cellpadding="4"><tr><td>Epsilon</td></tr><tr><td port="F"></td></tr></table> > ];
+
+17:F1 -> 21 [style=solid];
+
+21:F -> 22 [style=bold];
+
+22 [label="PLUS"];
+
+21 [shape="none", margin=0, style = filled, color ="1.0 .2 1.0",label = < <table border="1" cellborder="0" cellspacing="0" cellpadding="4"><tr><td>Epsilon</td></tr><tr><td port="F"></td></tr></table> > ];
+
+17:F2 -> 23 [style=solid];
+
+23 [shape="none", margin=0, style = filled, color ="1.0 .2 1.0",label = < <table border="1" cellborder="0" cellspacing="0" cellpadding="4"><tr><td port="H"></td></tr><tr><td>E_3_3</td></tr></table> > ];
+
+23 -> 24 [style=dotted];
+
+17 [shape="none", margin=0, style = filled, color ="1.0 .2 1.0",label = < <table border="1" cellborder="0" cellspacing="0" cellpadding="4"><tr><td colspan="3">seq</td></tr><tr><td port="F0"></td><td port="F1"></td><td port="F2"></td></tr></table> > ];
+
+12:F -> 25 [style=solid];
+
+25:F0 -> 26 [style=solid];
+
+26 [shape="none", margin=0, style = filled, color ="1.0 .2 1.0",label = < <table border="1" cellborder="0" cellspacing="0" cellpadding="4"><tr><td port="H"></td></tr><tr><td>E_1_3</td></tr></table> > ];
+
+26 -> 11 [style=dotted];
+
+25:F1 -> 27 [style=solid];
+
+27 [shape="diamond", margin=0, style = filled, color ="1.0 .2 1.0",label="MULT"];
+
+25:F2 -> 28 [style=solid];
+
+28 [shape="none", margin=0, style = filled, color ="1.0 .2 1.0",label = < <table border="1" cellborder="0" cellspacing="0" cellpadding="4"><tr><td port="H"></td></tr><tr><td>E_0_0</td></tr></table> > ];
+
+28 -> 0 [style=dotted];
+
+25 [shape="none", margin=0, style = filled, color ="1.0 .2 1.0",label = < <table border="1" cellborder="0" cellspacing="0" cellpadding="4"><tr><td colspan="3">seq</td></tr><tr><td port="F0"></td><td port="F1"></td><td port="F2"></td></tr></table> > ];
+
+12 [shape="none", margin=0, style = filled, color ="1.0 .2 1.0",label = < <table border="1" cellborder="0" cellspacing="0" cellpadding="4"><tr><td>alt</td></tr><tr><td port="F"></td></tr></table> > ];
+
+11 [shape="none", margin=0, style = filled, color ="1.0 .2 1.0",label = < <table border="1" cellborder="0" cellspacing="0" cellpadding="4"><tr><td>E_1_3</td></tr><tr><td port="F"></td></tr></table> > ];
+
+24:F -> 29 [style=solid];
+
+29:F -> 30 [style=solid];
+
+30:F0 -> 31 [style=solid];
+
+31 [shape="none", margin=0, style = filled, color =".2 .7 .7", label = < <table border="1" cellborder="0" cellspacing="0" cellpadding="4"><tr><td port="H"></td></tr><tr><td>E_3_3</td></tr></table> > ];
+
+31 -> 24 [style=dotted];
+
+30:F1 -> 32 [style=solid];
+
+32 [shape="diamond", margin=0, style = filled, color =".2 .7 .7", label="PLUS"];
+
+30:F2 -> 33 [style=solid];
+
+33 [shape="none", margin=0, style = filled, color =".2 .7 .7", label = < <table border="1" cellborder="0" cellspacing="0" cellpadding="4"><tr><td port="H"></td></tr><tr><td>E_0_0</td></tr></table> > ];
+
+33 -> 0 [style=dotted];
+
+30 [shape="none", margin=0, style = filled, color =".2 .7 .7", label = < <table border="1" cellborder="0" cellspacing="0" cellpadding="4"><tr><td colspan="3">seq</td></tr><tr><td port="F0"></td><td port="F1"></td><td port="F2"></td></tr></table> > ];
+
+29:F -> 34 [style=solid];
+
+34:F0 -> 35 [style=solid];
+
+35 [shape="none", margin=0, style = filled, color =".2 .7 .7", label = < <table border="1" cellborder="0" cellspacing="0" cellpadding="4"><tr><td port="H"></td></tr><tr><td>E_3_3</td></tr></table> > ];
+
+35 -> 24 [style=dotted];
+
+34:F1 -> 36 [style=solid];
+
+36 [shape="diamond", margin=0, style = filled, color =".2 .7 .7", label="MULT"];
+
+34:F2 -> 37 [style=solid];
+
+37 [shape="none", margin=0, style = filled, color =".2 .7 .7", label = < <table border="1" cellborder="0" cellspacing="0" cellpadding="4"><tr><td port="H"></td></tr><tr><td>E_0_0</td></tr></table> > ];
+
+37 -> 0 [style=dotted];
+
+34 [shape="none", margin=0, style = filled, color =".2 .7 .7", label = < <table border="1" cellborder="0" cellspacing="0" cellpadding="4"><tr><td colspan="3">seq</td></tr><tr><td port="F0"></td><td port="F1"></td><td port="F2"></td></tr></table> > ];
+
+29:F -> 38 [style=solid];
+
+38:F -> 39 [style=bold];
+
+39 [label="(NUM 4)"];
+
+38 [shape="none", margin=0, style = filled, color =".2 .7 .7",label = < <table border="1" cellborder="0" cellspacing="0" cellpadding="4"><tr><td>Epsilon</td></tr><tr><td port="F"></td></tr></table> > ];
+
+29 [shape="none", margin=0, style = filled, color =".2 .7 .7", label = < <table border="1" cellborder="0" cellspacing="0" cellpadding="4"><tr><td>alt</td></tr><tr><td port="F"></td></tr></table> > ];
+
+24 [shape="none", margin=0, style = filled, color =".2 .7 .7",label = < <table border="1" cellborder="0" cellspacing="0" cellpadding="4"><tr><td>E_3_3</td></tr><tr><td port="F"></td></tr></table> > ];
+
+40:F -> 41 [style=solid];
+
+41 [shape="none", margin=0, style = filled, color ="#7FB3D5", label = < <table border="1" cellborder="0" cellspacing="0" cellpadding="4"><tr><td port="H"></td></tr><tr><td>E_1_3</td></tr></table> > ];
+
+41 -> 11 [style=dotted];
+
+40 [shape="none", margin=0, style = filled, color ="#7FB3D5", label = < <table border="1" cellborder="0" cellspacing="0" cellpadding="4"><tr><td>start_1_3</td></tr><tr><td port="F"></td></tr></table> > ];
+
+
+
+subgraph cluster_2 {
+	label = "E_3_3 Rule";
+	color = ".2 .7 .7";
+	style ="filled"
+    fillcolor ="#e6e6e6"
+	node [shape = record];
+    24;29;30;31;32;33;34;35;36;37;38;39;
+}
+
+subgraph cluster_3 {
+	label = "E_0_0 Rule";
+	color = ".5 .5 1.0";
+	style ="filled"
+    fillcolor ="#e6e6e6"
+	node [shape = record];
+    0;1;2;3;4;5;6;7;8;9;10;
+}
+
+subgraph cluster_4{
+	label = "E_1_3 Rule";
+	color = "1.0 .2 1.0";
+	style ="filled"
+    fillcolor ="#e6e6e6"
+	node [shape = record];
+    11;12;13;14;15;16;17;18;19;20;21;22;23;25;26;27;28;
+    subgraph cluster_1 {
+	label = "start_1_3 Rule";
+	color = "#7FB3D5";
+	style ="filled"
+    fillcolor ="#e6e6e6"
+	node [shape = record];
+    40;41;
+}
+  }
+
+
+
+}
+
